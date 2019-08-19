@@ -8,14 +8,14 @@ const category = ['Italian', 'Fast-Food', 'Mexican', 'Chinese', 'Korean', 'Greek
 
 router.get('/restaurants', (req, res, next) => {
 	for (let i=0; i < 60; i++) {
-		let rest = new Restaurant();
-		rest.category = category[Math.floor(Math.random() * category.length)]
-		rest.name = faker.company.companyName()
-		rest.address = faker.address.city() + ', ' + faker.address.state() + ', ' + faker.address.country()
-		rest.imageURL = faker.image.imageUrl(800, 800, "food")
-		rest.reviews = []
+		let restaurant = new Restaurant();
+		restaurant.category = category[Math.floor(Math.random() * category.length)]
+		restaurant.name = faker.company.companyName()
+		restaurant.address = faker.address.city() + ', ' + faker.address.state() + ', ' + faker.address.country()
+		restaurant.imageURL = faker.image.imageUrl(800, 800, "food")
+		restaurant.reviews = []
 
-		rest.save((err) => {
+		restaurant.save((err) => {
 			if (err) throw err
 		})
 	}
