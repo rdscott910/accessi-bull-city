@@ -21,6 +21,12 @@ router.param('id', (req, res, next) => {
 	}
 })
 
+//GET route here for Restaurant by ID
+router.get('/:id', (req, res, next) => {
+	//this takes advantage of our "middleware" helper function above
+	req.restaurant ? res.status(200).send(req.restaurant) : res.status(404).send('Restaurant not found.');
+});
+
 // POST route for updating an existing restaurant
 router.post('/:id', (req, res, next) => {
 	Restaurant.findByIdAndUpdate(req.restaurant._id,
