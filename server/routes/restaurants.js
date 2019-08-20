@@ -16,13 +16,28 @@ router.get('/', (req, res, next) => {
 		})
 })
 
-// helper function for routes with Restaurant ID parameter
+// helper function for routes with yelp Restaurant ID parameter
 router.param('id', (req, res, next) => {
 	let { id } = req.params;
-	if (id.length !== 24) {
+	// if (id.length !== 22) {
+	// 	res.status(404).send('Incorrect Restaurant ID, please update and try again.');
+	// } else {
+		Restaurant.find({id: id}).exec((err, result) => {
+			if (err) return next(err);
+		
+			req.restaurant = result;
+			next();
+		})
+	// }
+})
+
+// helper function for routes with object id parameter
+router.param('objectId', (req, res, next) => {
+	let { objectId } = req.params;
+	if (objectId.length !== 24) {
 		res.status(404).send('Incorrect Restaurant ID, please update and try again.');
 	} else {
-		Restaurant.findById(id).exec((err, result) => {
+		Restaurant.findById(objectId).exec((err, result) => {
 			if (err) return next(err);
 		
 			req.restaurant = result;
@@ -38,18 +53,20 @@ router.get('/:id', (req, res, next) => {
 });
 
 // POST route for updating an existing restaurant
-router.post('/:id', (req, res, next) => {
+router.post('/restaurant/:objectId', (req, res, next) => {
 	Restaurant.findByIdAndUpdate(req.restaurant._id,
 		req.body,
 		{ new: true },
-		function (err, result) {
+		(err, result) => {
 			if (err) return next(err);
+			// const newRestaurant = new Restaurant(result);
+			// newRestaurant.save();
 			res.send(result);
 		});
 });
 
-// Make request to yelp fusion and store the results in database
-router.get('/:location', (req, res, next) => {
+// Make request to yelp fusion and store business name and id in database
+router.get('/location/:location', (req, res, next) => {
 	let { location } = req.params;
 	client.search({
 		location: location
