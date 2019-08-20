@@ -16,9 +16,11 @@ app.use(bodyParser.urlencoded({
 
 const dataRoutes = require('./routes/generate_data');
 const reviewRoutes = require('./routes/reviews');
+const restaurantRoutes = require('./routes/restaurants');
 
 app.use('/data', dataRoutes);
 app.use('/reviews', reviewRoutes);
+app.use('/restaurants', restaurantRoutes);
 
 app.get('/', (req, res) => {
   res.send('Hello world!!!');
