@@ -16,7 +16,7 @@ router.get('/', (req, res, next) => {
 		})
 })
 
-// helper function for routes with Restaurant ID parameter
+// helper function for routes with yelp Restaurant ID parameter
 router.param('id', (req, res, next) => {
 	let { id } = req.params;
 	// if (id.length !== 22) {
@@ -31,6 +31,21 @@ router.param('id', (req, res, next) => {
 	// }
 })
 
+// helper function for routes with object id parameter
+router.param('objectId', (req, res, next) => {
+	let { objectId } = req.params;
+	if (objectId.length !== 24) {
+		res.status(404).send('Incorrect Restaurant ID, please update and try again.');
+	} else {
+		Restaurant.findById(objectId).exec((err, result) => {
+			if (err) return next(err);
+		
+			req.restaurant = result;
+			next();
+		})
+	}
+})
+
 //GET route here for Restaurant by ID
 router.get('/:id', (req, res, next) => {
 	//this takes advantage of our "middleware" helper function above
@@ -38,7 +53,7 @@ router.get('/:id', (req, res, next) => {
 });
 
 // POST route for updating an existing restaurant
-router.post('/restaurant/:id', (req, res, next) => {
+router.post('/restaurant/:objectId', (req, res, next) => {
 	Restaurant.findByIdAndUpdate(req.restaurant._id,
 		req.body,
 		{ new: true },
