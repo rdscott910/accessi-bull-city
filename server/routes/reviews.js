@@ -20,7 +20,7 @@ router.post('/', (req, res, next) => {
 	})
 })
 
-//helper function for routes with the ID parameter
+// helper function for routes with the ID parameter
 router.param('id', function (req, res, next) {
 	let { id } = req.params;
 	//check here for incorrect id format
