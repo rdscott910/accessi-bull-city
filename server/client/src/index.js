@@ -9,11 +9,13 @@ import rootReducer from './reducers/index';
 import RestaurantDetailView from './components/restaurantDetailView';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
-// const store = createStore(rootReducer, {}, applyMiddleware(thunk));
+const store = createStore(rootReducer, {}, applyMiddleware(thunk));
 
 
 ReactDOM.render(
-		<App />,
+	<Provider store={store}>
+		<App />
+	</Provider>,
 document.getElementById('root'));
 
 
