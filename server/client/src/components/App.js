@@ -1,6 +1,6 @@
 import React from 'react';
 import RestaurantList from '../containers/restaurantList';
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import RestaurantDetailView from './restaurantDetailView';
 
 const App = () => {
