@@ -3,8 +3,8 @@ import { FETCH_RESTAURANTS, FETCH_RESTAURANT, FETCH_REVIEWS, CREATE_REVIEW } fro
 
 const ROOT_URL = 'http://localhost:8000';
 
-export const fetchRestaurants = () => dispatch => {
-	axios.get(`${ROOT_URL}/restaurants/`)
+export const fetchRestaurants = (location) => dispatch => {
+	axios.get(`${ROOT_URL}/restaurants/location/${location}`)
 		.then( response => {
 			dispatch({ type: FETCH_RESTAURANTS, payload: response.data});
 		})
@@ -14,7 +14,7 @@ export const fetchRestaurants = () => dispatch => {
 }
 
 export const fetchRestaurant = (id) => dispatch => {
-	axios.get(`/restaurants/${id}`)
+	axios.get(`${ROOT_URL}/restaurants/${id}`)
 		.then(response => {
 			dispatch({ type: FETCH_RESTAURANT, payload: response.data});
 		})
