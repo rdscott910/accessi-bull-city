@@ -20,78 +20,38 @@ import Container from '@material-ui/core/Container';
 import Input from '@material-ui/core/Input'
 
 
-class RestaurantList extends Component {
 
-	componentDidMount() {
-		this.props.fetchRestaurants();
+class RestaurantList extends Component {
+	constructor(props) {
+		super(props)
+
+		this.state = {
+			searchTerm: ''
+		}
+
+		this.sendSearchTerm = this.sendSearchTerm.bind(this)
+		this.handleSubmit = this.handleSubmit.bind(this)
+	}
+
+	sendSearchTerm(e) {
+		this.setState({searchTerm: e.target.value}) 
+	}
+
+	handleSubmit() {
+		this.props.fetchRestaurants(this.state.searchTerm)
 	}
 
 	render() {
 
-		// function Copyright() {
-		// 	return (
-		// 		<Typography variant="body2" color="textSecondary" align="center">
-		// 			{'Copyright © '}
-		// 			<Link color="inherit" href="https://material-ui.com/">
-		// 				Your Website
-		// 			</Link>{' '}
-		// 			{new Date().getFullYear()}
-		// 			{'. Built with '}
-		// 			<Link color="inherit" href="https://material-ui.com/">
-		// 				Material-UI.
-		// 			</Link>
-		// 		</Typography>
-		// 	);
-		// }
-
-		// const useStyles = makeStyles(theme => ({
-		// 	root: {
-		// 		background: '#3C5165',
-		// 		color: '#E4F2FC'
-		// 	},
-		// 	icon: {
-		// 		marginRight: theme.spacing(2)
-		// 	},
-		// 	heroContent: {
-		// 		backgroundColor: '#E4F2FC',
-		// 		color: '##3C5165',
-		// 		padding: theme.spacing(8, 0, 6)
-		// 	},
-		// 	heroButtons: {
-		// 		marginTop: theme.spacing(4)
-		// 	},
-		// 	cardGrid: {
-		// 		paddingTop: theme.spacing(8),
-		// 		paddingBottom: theme.spacing(8)
-		// 	},
-		// 	card: {
-		// 		height: '100%',
-		// 		display: 'flex',
-		// 		flexDirection: 'column'
-		// 	},
-		// 	cardMedia: {
-		// 		paddingTop: '56.25%', // 16:9
-		// 	},
-		// 	cardContent: {
-		// 		flexGrow: 1
-		// 	},
-		// 	footer: {
-		// 		backgroundColor: theme.palette.background.paper,
-		// 		padding: theme.spacing(6)
-		// 	}
-		// }));
-		
-		
-		// const classes = useStyles();
-
 		return (
+			
 			<React.Fragment>
 				<CssBaseline />
-				<AppBar position="relative" className>
+				<AppBar position="relative" style={{background: '#3C5165',color: '#E4F2FC'}}>
 					<Toolbar>
-						<AccessibilityNewIcon className />
+						<AccessibilityNewIcon />
 						<Link to={'/'} style={{textDecoration: 'none'}}>
-						<Typography variant="h6" className color="inherit" noWrap>
+						<Typography variant="h6" style={{color: 'white', marginLeft:'15px'}} noWrap>
 							AccessiBull.City
 						</Typography>
 						</Link>
@@ -99,7 +59,7 @@ class RestaurantList extends Component {
 				</AppBar>
 			<main>
 			{/* Hero unit */}
-				<div className>
+				<div style={{backgroundColor: '#E4F2FC', color: '#3C5165', padding: '3.5em 1.5em 3.5em 1.5em'}}>
 					<Container maxWidth="sm">
 						<Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
 						AccessiBull.City
@@ -108,13 +68,13 @@ class RestaurantList extends Component {
 							Search for businesses and see their accessibility rating. View the restaurant to 
 							see more details and write a review.
 						</Typography>
-						<div className>
+						<div style={{padding: '1.5em 0 1.5em 0'}}>
 							<Grid container spacing={2} justify="center">
 								<Grid item>
-									<Input placeholder="Search Input"></Input>
+									<Input placeholder="Search Input" onChange={this.sendSearchTerm}></Input>
 								</Grid>
 								<Grid item>
-									<Button variant="contained" style={{background: '#3C5165', color: '#E4F2FC'}}>
+									<Button variant="contained" onClick={this.handleSubmit} style={{background: '#3C5165', color: '#E4F2FC'}}>
 									Search for Restaurants
 									</Button>
 								</Grid>
@@ -122,23 +82,25 @@ class RestaurantList extends Component {
 						</div>
 					</Container>
 				</div>
-			<Container className maxWidth="md">
+			<Container style={{padding: '1.5em 1.5em 1.5em 1.5em'}}maxWidth="md">
 					{/* End hero unit */}
 					<Grid container spacing={4}>
 						{this.props.restaurants.map(restaurant => (
 							<Grid item key={restaurant.id} xs={12} sm={6} md={4}>
-							<Card className>
+							<Card style={{height: '100%', display: 'flex', flexDirection: 'column'}}>
 								<CardMedia
-								
-								image="https://source.unsplash.com/random"
+								image={restaurant.image_url}
 								title="Image title"
+								style={{padding: '56.25% 0 0 0'}}
 								/>
-								<CardContent>
+								<CardContent style={{flexGrow: 1}}>
 									<Typography gutterBottom variant="h5" component="h2">
 										{restaurant.name}
 									</Typography>
 									<Typography>
-										Some details: Address, Overall Accessibility Rating
+										{restaurant.location.display_address[0]}<br />
+										{restaurant.location.display_address[1]}<br />
+										{restaurant.location.display_address[2]}
 									</Typography>
 								</CardContent>
 								<CardActions>
@@ -155,7 +117,7 @@ class RestaurantList extends Component {
 			</Container>
 				</main>
 				{/* Footer */}
-				<footer className>
+				<footer style={{backgroundColor: '#f9f9f9'}}>
 				<Typography variant="h6" align="center" gutterBottom>
 					Footer
 				</Typography>

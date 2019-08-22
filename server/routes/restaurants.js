@@ -72,10 +72,10 @@ router.get('/location/:location', (req, res, next) => {
 		location: location
 	  }).then(response => {
 		  res.send(response.jsonBody.businesses);
-		  for(i=0; i<response.jsonBody.businesses.length; i++){
-			const newRestaurant = new Restaurant(response.jsonBody.businesses[i]);
-			newRestaurant.save();
-		}	 
+		//   for(i=0; i<response.jsonBody.businesses.length; i++){
+		// 	const newRestaurant = new Restaurant(response.jsonBody.businesses[i]);
+		// 	newRestaurant.save();
+		// }	 
 	  }).catch(e => {
 		console.log(e);
 	  });
