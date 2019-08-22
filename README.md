@@ -4,7 +4,7 @@ Restaurant accessibility finder and reviews
 **Tech Used**
 * React 
 * Redux
-* Bootstrap
+* Material-UI
 * Node
 * Express
 * MongoDB
