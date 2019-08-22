@@ -14,7 +14,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 // import Link from '@material-ui/core/Link';
 import Input from '@material-ui/core/Input'
@@ -64,7 +63,7 @@ class RestaurantList extends Component {
 						<Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
 						AccessiBull.City
 						</Typography>
-						<Typography variant="h5" align="center" color="textSecondary" paragraph>
+						<Typography variant="h5" align="left" color="textSecondary" paragraph>
 							Search for businesses and see their accessibility rating. View the restaurant to 
 							see more details and write a review.
 						</Typography>
@@ -90,7 +89,7 @@ class RestaurantList extends Component {
 							<Card style={{height: '100%', display: 'flex', flexDirection: 'column'}}>
 								<CardMedia
 								image={restaurant.image_url}
-								title="Image title"
+								title="Restaurant Image"
 								style={{padding: '56.25% 0 0 0'}}
 								/>
 								<CardContent style={{flexGrow: 1}}>
@@ -102,9 +101,13 @@ class RestaurantList extends Component {
 										{restaurant.location.display_address[1]}<br />
 										{restaurant.location.display_address[2]}
 									</Typography>
+									<br />
+									<Typography>
+										Accessibility: 4/5
+									</Typography>
 								</CardContent>
 								<CardActions>
-									<Link to={'/restaurant'} style={{textDecoration: 'none'}}>
+									<Link to={`/restaurants/${restaurant.id}`} style={{textDecoration: 'none'}}>
 										<Button size="large" color="primary">
 											View
 										</Button>

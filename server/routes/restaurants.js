@@ -17,19 +17,19 @@ router.get('/', (req, res, next) => {
 })
 
 // helper function for routes with yelp Restaurant ID parameter
-router.param('id', (req, res, next) => {
-	let { id } = req.params;
-	// if (id.length !== 22) {
-	// 	res.status(404).send('Incorrect Restaurant ID, please update and try again.');
-	// } else {
-		Restaurant.find({id: id}).exec((err, result) => {
-			if (err) return next(err);
+// router.param('id', (req, res, next) => {
+// 	let { id } = req.params;
+// 	// if (id.length !== 22) {
+// 	// 	res.status(404).send('Incorrect Restaurant ID, please update and try again.');
+// 	// } else {
+// 		Restaurant.find({id: id}).exec((err, result) => {
+// 			if (err) return next(err);
 		
-			req.restaurant = result;
-			next();
-		})
-	// }
-})
+// 			req.restaurant = result;
+// 			next();
+// 		})
+// 	// }
+// })
 
 // helper function for routes with object id parameter
 router.param('objectId', (req, res, next) => {
@@ -49,7 +49,13 @@ router.param('objectId', (req, res, next) => {
 //GET route here for Restaurant by ID
 router.get('/:id', (req, res, next) => {
 	//this takes advantage of our "middleware" helper function above
-	req.restaurant ? res.status(200).send(req.restaurant) : res.status(404).send('Restaurant not found.');
+	// req.restaurant ? res.status(200).send(req.restaurant) : res.status(404).send('Restaurant not found.');
+	let { id } = req.params;
+	client.business(`${id}`).then(response => {
+		res.send(response.jsonBody)
+	  }).catch(e => {
+		console.log(e);
+	  });
 });
 
 // POST route for updating an existing restaurant
@@ -59,8 +65,6 @@ router.post('/restaurant/:objectId', (req, res, next) => {
 		{ new: true },
 		(err, result) => {
 			if (err) return next(err);
-			// const newRestaurant = new Restaurant(result);
-			// newRestaurant.save();
 			res.send(result);
 		});
 });
@@ -71,11 +75,7 @@ router.get('/location/:location', (req, res, next) => {
 	client.search({
 		location: location
 	  }).then(response => {
-		  res.send(response.jsonBody.businesses);
-		//   for(i=0; i<response.jsonBody.businesses.length; i++){
-		// 	const newRestaurant = new Restaurant(response.jsonBody.businesses[i]);
-		// 	newRestaurant.save();
-		// }	 
+		  res.send(response.jsonBody.businesses); 
 	  }).catch(e => {
 		console.log(e);
 	  });
