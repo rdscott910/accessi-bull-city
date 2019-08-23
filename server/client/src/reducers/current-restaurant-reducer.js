@@ -1,4 +1,4 @@
-import { CREATE_REVIEW, FETCH_RESTAURANT } from "../actions/types";
+import { CREATE_REVIEW, FETCH_RESTAURANT, SAVE_RESTAURANT } from "../actions/types";
 
 export default function (state = {}, action) {
 	if (action.error) {
@@ -8,6 +8,8 @@ export default function (state = {}, action) {
 		case FETCH_RESTAURANT:
 			return action.payload;
 		case CREATE_REVIEW:
+			return action.payload;
+		case SAVE_RESTAURANT:
 			return action.payload;
 		default:
 			return state;

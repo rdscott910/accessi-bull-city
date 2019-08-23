@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FETCH_RESTAURANTS, FETCH_RESTAURANT, FETCH_REVIEWS, CREATE_REVIEW } from "./types";
+import { SAVE_RESTAURANT,FETCH_DATABASE_RESTAURANTS, FETCH_RESTAURANTS, FETCH_RESTAURANT, FETCH_REVIEWS, CREATE_REVIEW, FETCH_CURRENT_RESTAURANT } from "./types";
 
 const ROOT_URL = 'http://localhost:8000';
 
@@ -22,6 +22,25 @@ export const fetchRestaurant = (id) => dispatch => {
 			console.log(error);
 		})
 }
+export const fetchDatabaseRestaurants = () => dispatch => {
+	axios.get(`${ROOT_URL}/restaurants`)
+		.then( response => {
+			dispatch({ type: FETCH_DATABASE_RESTAURANTS, payload: response.data});
+		})
+		.catch(error => {
+			console.log(error);
+		})
+}
+export const fetchCurrentRestaurant = (id) => dispatch => {
+	axios.get(`${ROOT_URL}/restaurants/database/${id}`)
+	.then(response => {
+		dispatch({ type: FETCH_CURRENT_RESTAURANT, payload: response.data});
+	})
+	.catch(error => {
+		console.log(error);
+	})
+}
+
 
 export const fetchReviews = () => dispatch => {
 	axios.get(`${ROOT_URL}/reviews/`)
@@ -34,7 +53,17 @@ export const fetchReviews = () => dispatch => {
 }
 
 export const createReview = (id, updates) => dispatch => {
-	axios.post(`${ROOT_URL}/restaurants/${id}`,{...updates})
+	axios.post(`${ROOT_URL}/restaurants/restaurant/update/${id}`, updates)
+	.then( response => {
+		dispatch({ type: CREATE_REVIEW, payload: response.data});
+	})
+	.catch( error => {
+		console.log(error);
+	})
+}
+
+export const saveRestaurant = (id) => dispatch => {
+	axios.get(`${ROOT_URL}/restaurants/save/${id}`)
 	.then( response => {
 		dispatch({ type: CREATE_REVIEW, payload: response.data});
 	})

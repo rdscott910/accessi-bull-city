@@ -5,7 +5,7 @@ const RestaurantSchema = new Schema({
 	id: {type: String },
 	name: { type: String },
 	reviews: [{
-		review: String
+		review: {}
 	}],
 
 	updated_at: Date,
