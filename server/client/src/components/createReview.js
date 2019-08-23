@@ -8,7 +8,7 @@ import AccessibilityNewIcon from '@material-ui/icons/AccessibilityNew';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { bindActionCreators } from 'redux';
-import { fetchRestaurant, createReview, fetchCurrentRestaurant, fetchDatabaseRestaurants } from '../actions'
+import { fetchRestaurant, createReview, fetchCurrentRestaurant, fetchDatabaseRestaurants, saveReview } from '../actions'
 import { connect } from "react-redux";
 
 
@@ -17,7 +17,10 @@ class CreateReview extends Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			newReviewArray: []
+			newReviewArray: [],
+			name: '',
+			rating: '',
+			content: '',
 		}
 		
 		this.handleNameChange = this.handleNameChange.bind(this);
@@ -28,29 +31,31 @@ class CreateReview extends Component {
 	}
 
 	handleNameChange(e) {
-		this.setState({reviewerName: e.target.value});
+		this.setState({name: e.target.value});
 	}
 	handleRatingChange(e) {
 		this.setState({rating: e.target.value});
 	}
 	handleReviewChange(e) {
-		this.setState({reviewContent: e.target.value});
+		this.setState({content: e.target.value});
 	}
 
 	componentDidMount() {
 		this.props.fetchRestaurant(this.props.match.params.id)
-		this.props.fetchDatabaseRestaurants()
+		// this.props.fetchDatabaseRestaurants()
 	}
 
-	onSubmit(rest, review) {
+	onSubmit() {
 		console.log(this.props.currentYelpRestaurant.id);
 		alert(`Review created.`);
-		let currReview = { review: { name: 'Bob', rating: 4, content: 'This is a test review'}};
+		let currReview = { review: { name: `${this.state.name}`, rating: this.state.rating, content: `${this.state.content}`}};
 		console.log(this.props.currentDatabaseRestaurant.reviews);
 		this.setState({newReviewArray: [...this.props.currentDatabaseRestaurant.reviews, currReview]})
-		this.props.createReview(rest._id, { reviews: review });
+		// this.props.createReview(rest._id, { reviews: review });
 	}
-	handleBackButtonClick() {
+	handleBackButtonClick(rest, review) {
+		this.props.createReview(rest._id, { reviews: review });
+		this.props.saveReview(rest.id, { review: review })
 		this.props.history.push(`/restaurants/${this.props.match.params.id}`);
 	}
 
@@ -91,6 +96,7 @@ class CreateReview extends Component {
 						variant="outlined"
 						required
 						fullWidth
+						type="number"
 						id="rating"
 						label="Rating"
 						name="rating"
@@ -114,7 +120,7 @@ class CreateReview extends Component {
 				<br /><br />
 				<Button
 					// type="submit"
-					onClick={e => this.onSubmit(this.props.currentDatabaseRestaurant, this.state.newReviewArray)}
+					onClick={this.onSubmit}
 					fullWidth
 					variant="contained"
 					color="primary"
@@ -124,7 +130,7 @@ class CreateReview extends Component {
 				</Button>
 				<Button
 					type="button"
-					onClick={this.handleBackButtonClick}
+					onClick={e => this.handleBackButtonClick(this.props.currentDatabaseRestaurant, this.state.newReviewArray)}
 					fullWidth
 					variant="contained"
 					color="primary"
@@ -143,13 +149,13 @@ class CreateReview extends Component {
 function mapStateToProps(state) {
 	return {
 		restaurants: state.restaurants,
-		currentYelpRestaurant : state.current_restaurant,
-		currentDatabaseRestaurant : state.current_database_restaurant[0]
+		currentYelpRestaurant: state.current_restaurant,
+		currentDatabaseRestaurant: state.current_database_restaurant[0]
 	}
 }
 
 function mapDispatchToProps(dispatch) {
-	return bindActionCreators({ createReview, fetchRestaurant, fetchCurrentRestaurant, fetchDatabaseRestaurants }, dispatch);
+	return bindActionCreators({ createReview, fetchRestaurant, fetchCurrentRestaurant, fetchDatabaseRestaurants, saveReview }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateReview);

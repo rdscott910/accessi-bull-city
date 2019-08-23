@@ -71,11 +71,15 @@ router.get('/:id', (req, res, next) => {
 	//this takes advantage of our "middleware" helper function above
 	// req.restaurant ? res.status(200).send(req.restaurant) : res.status(404).send('Restaurant not found.');
 	let { id } = req.params;
-	client.business(`${id}`).then(response => {
-		res.send(response.jsonBody)
-	  }).catch(e => {
-		console.log(e);
-	  });
+	Restaurant.findOne({id: id}).exec((err, response) => {
+		if (err) throw err;
+		res.send(response)
+	})
+	// client.business(`${id}`).then(response => {
+	// 	res.send(response.jsonBody);
+	//   }).catch(e => {
+	// 	console.log(e);
+	//   });
 });
 
 //GET route here for Restaurant by ID && saving the restaurant id to the database
@@ -91,7 +95,7 @@ router.get('/save/:id', (req, res, next) => {
 		console.log(e);
 	  });
 });
-
+// just need to match yelp id with yelp id in the restaurant array//////////////////
 router.post('/restaurant/reviews/:id', (req,res,next) => {
 	let {id} = request.params;
 	Restaurant.find({id: id},

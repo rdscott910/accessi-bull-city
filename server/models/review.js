@@ -2,8 +2,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const ReviewSchema = new Schema({
-	reviewerName:  String ,
-	reviewContent: String ,
+	restaurantId: String,
+	name:  String ,
+	content: String ,
 	rating: String,
 
 	updated_at: Date,
