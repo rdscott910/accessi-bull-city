@@ -3,20 +3,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchRestaurants } from '../actions'
 import { Link } from 'react-router-dom';
-import AppBar from '@material-ui/core/AppBar';
-import Button from '@material-ui/core/Button';
 import AccessibilityNewIcon from '@material-ui/icons/AccessibilityNew';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Grid from '@material-ui/core/Grid';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
 // import Link from '@material-ui/core/Link';
-import Input from '@material-ui/core/Input'
+import {Input, Container, Typography, Toolbar, Grid, CssBaseline, CardMedia, CardContent, CardActions, Card, Button, AppBar} from '@material-ui/core';
 
 
 
@@ -60,7 +49,7 @@ class RestaurantList extends Component {
 			{/* Hero unit */}
 				<div style={{backgroundColor: '#E4F2FC', color: '#3C5165', padding: '3.5em 1.5em 3.5em 1.5em'}}>
 					<Container maxWidth="sm">
-						<Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
+						<Typography component="h1" variant="h4" align="center" justify="center" color="textPrimary" gutterBottom>
 						AccessiBull.City
 						</Typography>
 						<Typography variant="h5" align="left" color="textSecondary" paragraph>
