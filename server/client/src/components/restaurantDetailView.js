@@ -5,7 +5,7 @@ import AccessibilityNewIcon from '@material-ui/icons/AccessibilityNew';
 import {AppBar, CssBaseline, Toolbar, Typography, Button, Grid, Container, Card, CardContent} from '@material-ui/core'
 import Input from '@material-ui/core/Input'
 import { bindActionCreators } from 'redux';
-import { fetchRestaurant, fetchReviews, saveRestaurant } from '../actions'
+import { fetchRestaurant, saveRestaurant, fetchCurrentRestaurant } from '../actions'
 
 class RestaurantDetailView extends Component {
 
@@ -16,7 +16,7 @@ class RestaurantDetailView extends Component {
 
 	componentDidMount() {
 		this.props.fetchRestaurant(this.props.match.params.id)
-		this.props.fetchReviews()
+		this.props.fetchCurrentRestaurant(this.props.restaurant.id)
 	}
 
 	handleClick() {
@@ -67,19 +67,20 @@ class RestaurantDetailView extends Component {
 						</Link><br />
 						<strong>Reviews: </strong><br />
 						<Grid container spacing={4}>
-						{this.props.reviews.map(review => (
-							<Grid item key={review.id} xs={12} sm={6} md={4}>
+						{console.log(this.props.restaurant)}
+						{this.props.restaurant.reviews && this.props.restaurant.reviews.map(r => (
+							<Grid item key={r.review.id} xs={12} sm={6} md={4}>
 							<Card style={{height: '100%', display: 'flex', flexDirection: 'column'}}>
 								<CardContent style={{flexGrow: 1}}>
 									<Typography gutterBottom variant="h5" component="h2">
-										{review.reviewerName}
+										{r.review.name}
 									</Typography>
 									<Typography>
-										{review.reviewContent}
+										{r.review.content}
 									</Typography>
 									<br />
 									<Typography>
-										Accessibility: {review.rating}
+										Accessibility: {r.review.rating}
 									</Typography>
 								</CardContent>
 							</Card>
@@ -95,15 +96,16 @@ class RestaurantDetailView extends Component {
 };
 
 function mapStateToProps(state) {
+	console.log(state);
 	return {
 		restaurant: state.current_restaurant,
-		reviews: state.reviews
+		currentDatabaseRestaurant: state.current_database_restaurant[0]
 	};
 }
 
 function mapDispatchToProps(dispatch) {
 	return bindActionCreators(
-		{fetchRestaurant, fetchReviews, saveRestaurant}, dispatch
+		{fetchRestaurant, saveRestaurant, fetchCurrentRestaurant}, dispatch
 	);
 }
 
