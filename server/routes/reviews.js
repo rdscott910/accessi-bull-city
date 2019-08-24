@@ -50,7 +50,7 @@ router.post('/:id', (req, res, next) => {
 	  req.body,
 	  // this parameter tells Mongo to return the updated object to us
 	  { new: true }, 
-	  // return an error or return our shiny updated Review
+	  // return an error or return updated Review
 	  function (err, result) {
 		if (err) return next(err);
 		res.send(result);
