@@ -14,7 +14,7 @@ export const fetchRestaurants = (location) => dispatch => {
 }
 
 export const fetchRestaurant = (id) => dispatch => {
-	axios.get(`${ROOT_URL}/restaurants/${id}`)
+	axios.get(`${ROOT_URL}/restaurants/database/${id}`)
 		.then(response => {
 			dispatch({ type: FETCH_RESTAURANT, payload: response.data});
 		})
@@ -32,7 +32,7 @@ export const fetchDatabaseRestaurants = () => dispatch => {
 		})
 }
 export const fetchCurrentRestaurant = (id) => dispatch => {
-	axios.get(`${ROOT_URL}/restaurants/database/${id}`)
+	axios.get(`${ROOT_URL}/restaurants/api/${id}`)
 	.then(response => {
 		dispatch({ type: FETCH_CURRENT_RESTAURANT, payload: response.data});
 	})

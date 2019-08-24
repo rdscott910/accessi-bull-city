@@ -15,15 +15,16 @@ class RestaurantDetailView extends Component {
 	}
 
 	componentDidMount() {
-		this.props.fetchRestaurant(this.props.match.params.id)
-		this.props.fetchCurrentRestaurant(this.props.restaurant.id)
+		// this.props.fetchRestaurant(this.props.match.params.id)
+		this.props.fetchCurrentRestaurant(this.props.match.params.id)
 	}
 
 	handleClick() {
-		this.props.saveRestaurant(this.props.restaurant.id)
+		this.props.saveRestaurant(this.props.ApiRestaurant.id)
 	}
 
 	render() {
+		this.props.match.params.id && this.props.fetchRestaurant(this.props.match.params.id)
 		return (
 			<React.Fragment>
 				<CssBaseline />
@@ -53,15 +54,15 @@ class RestaurantDetailView extends Component {
 				</Container>
 				<Container>
 					<Typography variant="h2" component="h1">
-					{this.props.restaurant.name}<br />
+					{this.props.ApiRestaurant.name}<br />
 					</Typography>
 					<Typography variant="h6" component="h2">
 						<strong>Contact Info:<br /></strong>
-						{this.props.restaurant.display_phone}<br />
+						{this.props.ApiRestaurant.display_phone}<br />
 						<strong>Go To Yelp URL:</strong><br />
-						<a href={this.props.restaurant.url}>{this.props.restaurant.name}</a><br />
+						<a href={this.props.ApiRestaurant.url}>{this.props.ApiRestaurant.name}</a><br />
 						<strong>Accessibility Rating: 4/5 </strong><br />
-						<Link to={`/restaurants/createreview/${this.props.restaurant.id}`} style={{textDecoration: 'none'}}>
+						<Link to={`/restaurants/createreview/${this.props.ApiRestaurant.id}`} style={{textDecoration: 'none'}}>
 						<Button onClick={this.handleClick} variant="contained" style={{background: '#3C5165', color: '#E4F2FC'}}>
 							Write A Review</Button>
 						</Link><br />
@@ -99,7 +100,7 @@ function mapStateToProps(state) {
 	console.log(state);
 	return {
 		restaurant: state.current_restaurant,
-		currentDatabaseRestaurant: state.current_database_restaurant[0]
+		ApiRestaurant: state.current_api_restaurant
 	};
 }
 

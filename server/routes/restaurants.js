@@ -59,19 +59,30 @@ router.post('/restaurant/update/:objectId', (req, res, next) => {
 
 router.get('/database/:id', (req, res, next) => {
 	let {id} = req.params;
-	Restaurant.find({id: id}).exec((err, response) => {
+	Restaurant.findOne({id: id}).exec((err, response) => {
 		if (err) throw err;
 		res.send(response)
 	})
 	// req.restaurant ? res.status(200).send(req.restaurant) : res.status(404).send('Restaurant not found.');
 })
 
+router.get('/api/:id', (req, res, next) => {
+	let { id } = req.params;
+	// Restaurant.findOne({id: id}).exec((err, response) => {
+	// 	if (err) throw err;
+	// 	res.send(response)
+	// })
+	client.business(`${id}`).then(response => {
+		res.send(response.jsonBody);
+	  }).catch(e => {
+		console.log(e);
+	  });
+});
+
 //GET route here for Restaurant by ID
 router.get('/:id', (req, res, next) => {
-	//this takes advantage of our "middleware" helper function above
-	// req.restaurant ? res.status(200).send(req.restaurant) : res.status(404).send('Restaurant not found.');
 	let { id } = req.params;
-	Restaurant.findOne({id: id}).exec((err, response) => {
+	Restaurant.find({id: id}).exec((err, response) => {
 		if (err) throw err;
 		res.send(response)
 	})
