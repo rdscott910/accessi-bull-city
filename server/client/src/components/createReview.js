@@ -51,7 +51,6 @@ class CreateReview extends Component {
 		let currReview = { review: { name: `${this.state.name}`, rating: this.state.rating, content: `${this.state.content}`}};
 		console.log(this.props.currentDatabaseRestaurant.reviews);
 		this.setState({newReviewArray: [...this.props.currentDatabaseRestaurant.reviews, currReview]})
-		// this.props.createReview(rest._id, { reviews: review });
 	}
 	handleBackButtonClick(rest, review) {
 		this.props.createReview(rest._id, { reviews: review });
@@ -60,7 +59,6 @@ class CreateReview extends Component {
 	}
 
 	render(){ 
-		// this.props.fetchCurrentRestaurant(this.props.currentDatabaseRestaurant._id)
 		return(
 			<Container component="main" maxWidth="xs">
 			<CssBaseline />
