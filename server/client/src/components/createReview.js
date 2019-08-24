@@ -127,7 +127,7 @@ class CreateReview extends Component {
 					style={{background: '#3C5165', color: '#E4F2FC'}}
 				>
 					Submit Review
-				</Button>
+				</Button><br /><br />
 				<Button
 					type="button"
 					onClick={e => this.handleBackButtonClick(this.props.currentDatabaseRestaurant, this.state.newReviewArray)}

@@ -5,7 +5,7 @@ const ReviewSchema = new Schema({
 	restaurantId: String,
 	name:  String ,
 	content: String ,
-	rating: String,
+	rating: Number,
 
 	updated_at: Date,
 	created_at: Date

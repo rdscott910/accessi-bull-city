@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { Link } from 'react-router-dom';
 import AccessibilityNewIcon from '@material-ui/icons/AccessibilityNew';
 import {AppBar, CssBaseline, Toolbar, Typography, Button, Grid, Container, Card, CardContent} from '@material-ui/core'
-import Input from '@material-ui/core/Input'
 import { bindActionCreators } from 'redux';
 import { fetchRestaurant, saveRestaurant, fetchCurrentRestaurant } from '../actions'
 
@@ -12,19 +11,33 @@ class RestaurantDetailView extends Component {
 	constructor(props){
 		super(props)
 		this.handleClick = this.handleClick.bind(this);
+		this.handleRating = this.handleRating.bind(this);
+		this.state = {
+			average: ''
+		}
 	}
 
 	componentDidMount() {
-		// this.props.fetchRestaurant(this.props.match.params.id)
 		this.props.fetchCurrentRestaurant(this.props.match.params.id)
 	}
 
 	handleClick() {
 		this.props.saveRestaurant(this.props.ApiRestaurant.id)
 	}
+	handleRating() {
+		if (this.props.restaurant.reviews && this.props.restaurant.reviews){
+			var total = 0;
+			for(var i = 0; i < this.props.restaurant.reviews.length; i++) {
+				total += Number(this.props.restaurant.reviews[i].review.rating);
+			}
+			var avg = total / this.props.restaurant.reviews.length;
+			this.setState({average: Math.round(avg * 10) / 10})
+		}else if (!this.props.restaurant.reviews){this.setState({average: 'No ratings collected yet.'})}
+	}
 
 	render() {
-		this.props.match.params.id && this.props.fetchRestaurant(this.props.match.params.id)
+		this.props.match.params.id && this.props.fetchRestaurant(this.props.match.params.id);
+		
 		return (
 			<React.Fragment>
 				<CssBaseline />
@@ -39,57 +52,58 @@ class RestaurantDetailView extends Component {
 					</Toolbar>
 				</AppBar>
 				<main>
-				<Container maxWidth="sm">
-						<div style={{padding: '1.5em 0 1.5em 0'}}>
-							<Grid container spacing={2} justify="left">
-								<Grid item>
-									<Link to="/" style={{textDecoration: 'none'}}>
-										<Button variant="contained" style={{background: '#3C5165', color: '#E4F2FC'}}>
-										Back To Restaurants
-										</Button>
-									</Link>
+					<Container maxWidth="sm">
+							<div style={{padding: '1.5em 0 1.5em 0'}}>
+								<Grid container spacing={2}>
+									<Grid item>
+										<Link to="/" style={{textDecoration: 'none'}}>
+											<Button variant="contained" style={{background: '#3C5165', color: '#E4F2FC'}}>
+											Back To Restaurants
+											</Button>
+										</Link>
+									</Grid>
 								</Grid>
+							</div>
+					</Container>
+					<Container>
+						<Typography variant="h2" component="h1">
+						{this.props.ApiRestaurant.name}<br />
+						</Typography>
+						<Typography variant="h6" component="h2">
+							<strong>Contact Info:<br /></strong>
+							{this.props.ApiRestaurant.display_phone}<br />
+							<strong>Go To Yelp URL:</strong><br />
+							<a href={this.props.ApiRestaurant.url}>{this.props.ApiRestaurant.name}</a><br /><br />
+							<Link to={`/restaurants/createreview/${this.props.ApiRestaurant.id}`} style={{textDecoration: 'none'}}>
+							<Button onClick={this.handleClick} variant="contained" style={{background: '#3C5165', color: '#E4F2FC'}}>
+								Write A Review</Button><br />
+							</Link><br />
+							<Button onClick={this.handleRating} variant="contained" style={{background: '#3C5165', color: '#E4F2FC'}}>
+								View Rating</Button><br />
+							<strong>Accessibility Rating: </strong><br />{this.state.average} <br />
+							<strong>Reviews: </strong><br />
+							<Grid container spacing={4}>
+								{this.props.restaurant.reviews && this.props.restaurant.reviews.map(r => (
+									<Grid item key={r._id} xs={12} sm={6} md={4}>
+										<Card style={{height: '100%', display: 'flex', flexDirection: 'column'}}>
+											<CardContent style={{flexGrow: 1}}>
+												<Typography gutterBottom variant="h5" component="h2">
+													Name: {r.review.name}
+												</Typography>
+												<Typography>
+													Review: {r.review.content}
+												</Typography>
+												<br />
+												<Typography>
+													Accessibility: {r.review.rating}
+												</Typography>
+											</CardContent>
+										</Card>
+									</Grid>
+								))}
 							</Grid>
-						</div>
-				</Container>
-				<Container>
-					<Typography variant="h2" component="h1">
-					{this.props.ApiRestaurant.name}<br />
-					</Typography>
-					<Typography variant="h6" component="h2">
-						<strong>Contact Info:<br /></strong>
-						{this.props.ApiRestaurant.display_phone}<br />
-						<strong>Go To Yelp URL:</strong><br />
-						<a href={this.props.ApiRestaurant.url}>{this.props.ApiRestaurant.name}</a><br />
-						<strong>Accessibility Rating: 4/5 </strong><br />
-						<Link to={`/restaurants/createreview/${this.props.ApiRestaurant.id}`} style={{textDecoration: 'none'}}>
-						<Button onClick={this.handleClick} variant="contained" style={{background: '#3C5165', color: '#E4F2FC'}}>
-							Write A Review</Button>
-						</Link><br />
-						<strong>Reviews: </strong><br />
-						<Grid container spacing={4}>
-						{console.log(this.props.restaurant)}
-						{this.props.restaurant.reviews && this.props.restaurant.reviews.map(r => (
-							<Grid item key={r.review.id} xs={12} sm={6} md={4}>
-							<Card style={{height: '100%', display: 'flex', flexDirection: 'column'}}>
-								<CardContent style={{flexGrow: 1}}>
-									<Typography gutterBottom variant="h5" component="h2">
-										{r.review.name}
-									</Typography>
-									<Typography>
-										{r.review.content}
-									</Typography>
-									<br />
-									<Typography>
-										Accessibility: {r.review.rating}
-									</Typography>
-								</CardContent>
-							</Card>
-							</Grid>
-						))}
-					</Grid>
-					</Typography>
-				</Container>
+						</Typography>
+					</Container>
 				</main>
 			</React.Fragment>
 		)
@@ -97,7 +111,6 @@ class RestaurantDetailView extends Component {
 };
 
 function mapStateToProps(state) {
-	console.log(state);
 	return {
 		restaurant: state.current_restaurant,
 		ApiRestaurant: state.current_api_restaurant
