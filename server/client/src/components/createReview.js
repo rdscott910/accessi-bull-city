@@ -8,7 +8,7 @@ import AccessibilityNewIcon from '@material-ui/icons/AccessibilityNew';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { bindActionCreators } from 'redux';
-import { fetchRestaurant, createReview, fetchCurrentRestaurant, fetchDatabaseRestaurants, saveReview } from '../actions'
+import { fetchRestaurant, createReview, fetchCurrentRestaurant, saveReview } from '../actions'
 import { connect } from "react-redux";
 
 
@@ -42,11 +42,11 @@ class CreateReview extends Component {
 
 	componentDidMount() {
 		this.props.fetchRestaurant(this.props.match.params.id)
-		// this.props.fetchDatabaseRestaurants()
+		this.props.fetchCurrentRestaurant(this.props.match.params.id)
 	}
 
 	onSubmit() {
-		console.log(this.props.currentYelpRestaurant.id);
+		console.log(this.props.currentDatabaseRestaurant.id);
 		alert(`Review created.`);
 		let currReview = { review: { name: `${this.state.name}`, rating: this.state.rating, content: `${this.state.content}`}};
 		console.log(this.props.currentDatabaseRestaurant.reviews);
@@ -79,7 +79,7 @@ class CreateReview extends Component {
 						autoComplete="none"
 						value={this.state.reviewerName}
 						onChange={this.handleNameChange}
-						onClick={this.props.fetchCurrentRestaurant(this.props.currentYelpRestaurant.id)}
+						onFocus={this.props.match.params.id && this.props.fetchRestaurant(this.props.match.params.id)}
 						name="Name"
 						variant="outlined"
 						required
@@ -149,13 +149,12 @@ class CreateReview extends Component {
 function mapStateToProps(state) {
 	return {
 		restaurants: state.restaurants,
-		currentYelpRestaurant: state.current_restaurant,
-		currentDatabaseRestaurant: state.current_database_restaurant[0]
+		currentDatabaseRestaurant: state.current_restaurant
 	}
 }
 
 function mapDispatchToProps(dispatch) {
-	return bindActionCreators({ createReview, fetchRestaurant, fetchCurrentRestaurant, fetchDatabaseRestaurants, saveReview }, dispatch);
+	return bindActionCreators({ createReview, fetchRestaurant, fetchCurrentRestaurant, saveReview }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateReview);
