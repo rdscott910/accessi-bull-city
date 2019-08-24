@@ -74,13 +74,13 @@ class RestaurantDetailView extends Component {
 							{this.props.ApiRestaurant.display_phone}<br />
 							<strong>Go To Yelp URL:</strong><br />
 							<a href={this.props.ApiRestaurant.url}>{this.props.ApiRestaurant.name}</a><br /><br />
+							<Button onClick={this.handleRating} variant="contained" style={{background: '#3C5165', color: '#E4F2FC'}}>
+								View Rating</Button><br />
+							<strong>Accessibility Rating: </strong><br />{this.state.average} <br />
 							<Link to={`/restaurants/createreview/${this.props.ApiRestaurant.id}`} style={{textDecoration: 'none'}}>
 							<Button onClick={this.handleClick} variant="contained" style={{background: '#3C5165', color: '#E4F2FC'}}>
 								Write A Review</Button><br />
 							</Link><br />
-							<Button onClick={this.handleRating} variant="contained" style={{background: '#3C5165', color: '#E4F2FC'}}>
-								View Rating</Button><br />
-							<strong>Accessibility Rating: </strong><br />{this.state.average} <br />
 							<strong>Reviews: </strong><br />
 							<Grid container spacing={4}>
 								{this.props.restaurant.reviews && this.props.restaurant.reviews.map(r => (

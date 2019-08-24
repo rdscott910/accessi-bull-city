@@ -22,10 +22,6 @@ app.use('/data', dataRoutes);
 app.use('/reviews', reviewRoutes);
 app.use('/restaurants', restaurantRoutes);
 
-app.get('/', (req, res) => {
-  res.send('Hello world!!!');
-});
-
 // Server setup
 const port = 8000;
 const server = http.createServer(app);

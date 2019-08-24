@@ -1,5 +1,5 @@
 import axios from "axios";
-import { SAVE_REVIEW, FETCH_DATABASE_RESTAURANTS, FETCH_RESTAURANTS, FETCH_RESTAURANT, FETCH_REVIEWS, CREATE_REVIEW, FETCH_CURRENT_RESTAURANT } from "./types";
+import { SAVE_REVIEW, FETCH_DATABASE_RESTAURANTS, FETCH_RESTAURANTS, FETCH_RESTAURANT, CREATE_REVIEW, FETCH_CURRENT_RESTAURANT } from "./types";
 
 const ROOT_URL = 'http://localhost:8000';
 
@@ -40,15 +40,7 @@ export const fetchCurrentRestaurant = (id) => dispatch => {
 		console.log(error);
 	})
 }
-export const fetchReviews = () => dispatch => {
-	axios.get(`${ROOT_URL}/reviews/`)
-	.then( response => {
-		dispatch({ type: FETCH_REVIEWS, payload: response.data });
-	})
-	.catch( error => {
-		console.log(error);
-	})
-}
+
 export const createReview = (id, updates) => dispatch => {
 	axios.post(`${ROOT_URL}/restaurants/restaurant/update/${id}`, updates)
 	.then( response => {

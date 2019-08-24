@@ -91,13 +91,16 @@ class RestaurantList extends Component {
 											</Typography>
 											<br />
 											<Typography>
-												Accessibility: 4/5
+												Price Score: {restaurant.price}
+											</Typography>
+											<Typography>
+												Cuisine: {restaurant.categories[0].title}
 											</Typography>
 										</CardContent>
 										<CardActions>
 											<Link to={`/restaurants/${restaurant.id}`} style={{textDecoration: 'none'}}>
-												<Button size="large" color="primary">
-													View
+												<Button size="large" color="primary" style={{background: '#3C5165', color: '#E4F2FC'}}>
+													<strong>View Details</strong>
 												</Button>
 											</Link>
 										</CardActions>
