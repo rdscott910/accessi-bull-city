@@ -4,7 +4,6 @@ import { bindActionCreators } from 'redux';
 import { fetchRestaurants } from '../actions'
 import { Link } from 'react-router-dom';
 import AccessibilityNewIcon from '@material-ui/icons/AccessibilityNew';
-// import Link from '@material-ui/core/Link';
 import {Input, Container, Typography, Toolbar, Grid, CssBaseline, CardMedia, CardContent, CardActions, Card, Button, AppBar} from '@material-ui/core';
 
 
@@ -46,7 +45,7 @@ class RestaurantList extends Component {
 					</Toolbar>
 				</AppBar>
 			<main>
-			{/* Hero unit */}
+				{/* Hero unit */}
 				<div style={{backgroundColor: '#E4F2FC', color: '#3C5165', padding: '3.5em 1.5em 3.5em 1.5em'}}>
 					<Container maxWidth="sm">
 						<Typography component="h1" variant="h4" align="center" justify="center" color="textPrimary" gutterBottom>
@@ -70,55 +69,44 @@ class RestaurantList extends Component {
 						</div>
 					</Container>
 				</div>
-			<Container style={{padding: '1.5em 1.5em 1.5em 1.5em'}}maxWidth="md">
-					{/* End hero unit */}
-					<Grid container spacing={4}>
-						{this.props.restaurants.map(restaurant => (
-							<Grid item key={restaurant.id} xs={12} sm={6} md={4}>
-							<Card style={{height: '100%', display: 'flex', flexDirection: 'column'}}>
-								<CardMedia
-								image={restaurant.image_url}
-								title="Restaurant Image"
-								style={{padding: '56.25% 0 0 0'}}
-								/>
-								<CardContent style={{flexGrow: 1}}>
-									<Typography gutterBottom variant="h5" component="h2">
-										{restaurant.name}
-									</Typography>
-									<Typography>
-										{restaurant.location.display_address[0]}<br />
-										{restaurant.location.display_address[1]}<br />
-										{restaurant.location.display_address[2]}
-									</Typography>
-									<br />
-									<Typography>
-										Accessibility: 4/5
-									</Typography>
-								</CardContent>
-								<CardActions>
-									<Link to={`/restaurants/${restaurant.id}`} style={{textDecoration: 'none'}}>
-										<Button size="large" color="primary">
-											View
-										</Button>
-									</Link>
-								</CardActions>
-							</Card>
-							</Grid>
-						))}
-					</Grid>
-			</Container>
-				</main>
-				{/* Footer */}
-				<footer style={{backgroundColor: '#f9f9f9'}}>
-				<Typography variant="h6" align="center" gutterBottom>
-					Footer
-				</Typography>
-				<Typography variant="subtitle1" align="center" color="textSecondary" component="p">
-					Something here to give the footer a purpose!
-				</Typography>
-				{/* <Copyright /> */}
-				</footer>
-				{/* End footer */}
+				<Container style={{padding: '1.5em 1.5em 1.5em 1.5em'}}maxWidth="md">
+						{/* End hero unit */}
+						<Grid container spacing={4}>
+							{this.props.restaurants.map(restaurant => (
+								<Grid item key={restaurant.id} xs={12} sm={6} md={4}>
+									<Card style={{height: '100%', display: 'flex', flexDirection: 'column'}}>
+										<CardMedia
+											image={restaurant.image_url}
+											title="Restaurant Image"
+											style={{padding: '56.25% 0 0 0'}}
+										/>
+										<CardContent style={{flexGrow: 1}}>
+											<Typography gutterBottom variant="h5" component="h2">
+												{restaurant.name}
+											</Typography>
+											<Typography>
+												{restaurant.location.display_address[0]}<br />
+												{restaurant.location.display_address[1]}<br />
+												{restaurant.location.display_address[2]}
+											</Typography>
+											<br />
+											<Typography>
+												Accessibility: 4/5
+											</Typography>
+										</CardContent>
+										<CardActions>
+											<Link to={`/restaurants/${restaurant.id}`} style={{textDecoration: 'none'}}>
+												<Button size="large" color="primary">
+													View
+												</Button>
+											</Link>
+										</CardActions>
+									</Card>
+								</Grid>
+							))}
+						</Grid>
+				</Container>
+			</main>
 			</React.Fragment>
 		);
 	}
