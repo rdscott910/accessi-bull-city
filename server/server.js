@@ -5,7 +5,8 @@ const mongoose = require('mongoose');
 const http = require('http');
 
 
-mongoose.connect('mongodb://localhost/AccessiBullCity', {useNewUrlParser: true})
+// mongoose.connect('mongodb://localhost/AccessiBullCity', {useNewUrlParser: true})
+mongoose.connect(keys.MONGOD_URI, { useNewUrlParser: true })
 
 const app = express();
 app.use(cors());
