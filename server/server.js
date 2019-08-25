@@ -39,7 +39,7 @@ if (process.env.NODE_ENV === 'production') {
 
 
 // Server setup
-const port = proccess.env.PORT || 8000;
+const port = process.env.PORT || 8000;
 const server = http.createServer(app);
 server.listen(port);
 console.log('Server listening on:', port);
