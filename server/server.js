@@ -23,7 +23,7 @@ app.use('/reviews', reviewRoutes);
 app.use('/restaurants', restaurantRoutes);
 
 // Server setup
-const port = 8000;
+const port = proccess.env.PORT || 8000;
 const server = http.createServer(app);
 server.listen(port);
 console.log('Server listening on:', port);
