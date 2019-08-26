@@ -58,7 +58,8 @@ class RestaurantList extends Component {
 						<div style={{padding: '1.5em 0 1.5em 0'}}>
 							<Grid container spacing={2} justify="center">
 								<Grid item>
-									<Input placeholder="Search Input" onChange={this.sendSearchTerm}></Input>
+									<label for="search">Enter a location: </label>
+									<Input id="search" placeholder="Search Input" onChange={this.sendSearchTerm}></Input>
 								</Grid>
 								<Grid item>
 									<Button variant="contained" onClick={this.handleSubmit} style={{background: '#3C5165', color: '#E4F2FC'}}>
@@ -78,6 +79,7 @@ class RestaurantList extends Component {
 										<CardMedia
 											image={restaurant.image_url}
 											title="Restaurant Image"
+											alt="Restaurant Image"
 											style={{padding: '56.25% 0 0 0'}}
 										/>
 										<CardContent style={{flexGrow: 1}}>
