@@ -71,7 +71,7 @@ class RestaurantDetailView extends Component {
 								</div>
 						</Container>
 					</div>
-					<Container style={{overflow: 'scroll'}}>
+					<Container>
 						<Typography variant="h2" component="h1">
 						{this.props.ApiRestaurant.name}<br />
 						</Typography>
