@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from 'react-router-dom';
 import AccessibilityNewIcon from '@material-ui/icons/AccessibilityNew';
-import {AppBar, CssBaseline, Toolbar, Typography, Button, Grid, Container, Card, CardContent} from '@material-ui/core'
+import {AppBar, TextField, CssBaseline, Toolbar, Typography, Button, Grid, Container, Card, CardContent} from '@material-ui/core'
 import { bindActionCreators } from 'redux';
 import { fetchDatabaseRestaurant, saveRestaurant, fetchCurrentApiRestaurant } from '../actions'
 
@@ -16,16 +16,20 @@ class RestaurantDetailView extends Component {
 			average: ''
 		}
 	}
-
+	
 	componentDidMount() {
 		this.props.fetchCurrentApiRestaurant(this.props.match.params.id);
+		this.props.fetchDatabaseRestaurant(this.props.match.params.id);
+		setTimeout(() => this.handleRating(), 500);
 	}
-	componentDidUpdate(oldProps) {
-		if (oldProps !== this.props){
-			this.props.fetchDatabaseRestaurant(this.props.match.params.id);
-			this.handleRating()
-		}
-	}
+	/**this was here to make the accessibility rating render with the right data but on ios devices
+	"componentDidUpdate" doesnt allows you to scroll */
+	// componentDidUpdate(oldProps) {
+	// 	if (oldProps !== this.props){
+	// 		this.props.fetchDatabaseRestaurant(this.props.match.params.id);
+	// 		this.handleRating()
+	// 	}
+	// }
 	
 	handleClick() {
 		!this.props.restaurant && this.props.saveRestaurant(this.props.ApiRestaurant.id)

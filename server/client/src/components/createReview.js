@@ -77,7 +77,6 @@ class CreateReview extends Component {
 						autoComplete="none"
 						value={this.state.reviewerName}
 						onChange={this.handleNameChange}
-						onFocus={this.props.fetchDatabaseRestaurant(this.props.match.params.id)}
 						name="Name"
 						variant="outlined"
 						required
