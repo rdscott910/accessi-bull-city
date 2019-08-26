@@ -22,7 +22,7 @@ class RestaurantDetailView extends Component {
 	}
 
 	handleClick() {
-		this.props.saveRestaurant(this.props.ApiRestaurant.id)
+		!this.props.restaurant && this.props.saveRestaurant(this.props.ApiRestaurant.id)
 	}
 	handleRating() {
 		if (this.props.restaurant.reviews && this.props.restaurant.reviews){
