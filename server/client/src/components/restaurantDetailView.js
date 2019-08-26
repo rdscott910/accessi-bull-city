@@ -18,26 +18,30 @@ class RestaurantDetailView extends Component {
 	}
 
 	componentDidMount() {
-		this.props.fetchCurrentApiRestaurant(this.props.match.params.id)
+		this.props.fetchCurrentApiRestaurant(this.props.match.params.id);
 	}
-
+	componentDidUpdate(oldProps) {
+		if (oldProps !== this.props){
+			this.props.fetchDatabaseRestaurant(this.props.match.params.id);
+			this.handleRating()
+		}
+	}
+	
 	handleClick() {
 		!this.props.restaurant && this.props.saveRestaurant(this.props.ApiRestaurant.id)
 	}
 	handleRating() {
-		if (this.props.restaurant.reviews && this.props.restaurant.reviews){
+		if (this.props.restaurant.reviews){
 			var total = 0;
 			for(var i = 0; i < this.props.restaurant.reviews.length; i++) {
 				total += Number(this.props.restaurant.reviews[i].review.rating);
 			}
 			var avg = total / this.props.restaurant.reviews.length;
 			this.setState({average: Math.round(avg * 10) / 10})
-		}else if (!this.props.restaurant.reviews){this.setState({average: 'No ratings collected yet.'})}
+		}else if (!this.props.restaurant){this.setState({average: 'No ratings collected yet.'})}
 	}
 
 	render() {
-		this.props.match.params.id && this.props.fetchDatabaseRestaurant(this.props.match.params.id);
-		
 		return (
 			<React.Fragment>
 				<CssBaseline />
@@ -74,8 +78,6 @@ class RestaurantDetailView extends Component {
 							{this.props.ApiRestaurant.display_phone}<br />
 							<strong>Go To Yelp URL:</strong><br />
 							<a href={this.props.ApiRestaurant.url}>{this.props.ApiRestaurant.name}</a><br /><br />
-							<Button onClick={this.handleRating} variant="contained" style={{background: '#3C5165', color: '#E4F2FC'}}>
-								View Rating</Button><br />
 							<strong>Accessibility Rating: </strong><br />{this.state.average} <br />
 							<Link to={`/restaurants/createreview/${this.props.ApiRestaurant.id}`} style={{textDecoration: 'none'}}>
 							<Button onClick={this.handleClick} variant="contained" style={{background: '#3C5165', color: '#E4F2FC'}}>
