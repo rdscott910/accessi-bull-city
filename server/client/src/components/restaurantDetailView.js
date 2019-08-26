@@ -57,7 +57,7 @@ class RestaurantDetailView extends Component {
 				</AppBar>
 				<main>
 					<div>
-						<Container maxWidth="sm">
+						<Container maxWidth="sm" style={{overflow: 'auto'}}>
 								<div style={{padding: '1.5em 0 1.5em 0'}}>
 									<Grid container spacing={2}>
 										<Grid item>
@@ -71,7 +71,7 @@ class RestaurantDetailView extends Component {
 								</div>
 						</Container>
 					</div>
-					<Container style={{overflow: 'auto'}} onTouchMove="true">
+					<Container style={{overflow: 'auto'}}>
 						<Typography variant="h2" component="h1">
 						{this.props.ApiRestaurant.name}<br />
 						</Typography>
