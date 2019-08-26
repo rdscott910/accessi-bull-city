@@ -53,10 +53,6 @@ router.get('/database/:id', (req, res, next) => {
 
 router.get('/api/:id', (req, res, next) => {
 	let { id } = req.params;
-	// Restaurant.findOne({id: id}).exec((err, response) => {
-	// 	if (err) throw err;
-	// 	res.send(response)
-	// })
 	client.business(`${id}`).then(response => {
 		res.send(response.jsonBody);
 	  }).catch(e => {

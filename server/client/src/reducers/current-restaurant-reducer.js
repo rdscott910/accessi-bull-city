@@ -1,11 +1,11 @@
-import { CREATE_REVIEW, FETCH_RESTAURANT, SAVE_RESTAURANT } from "../actions/types";
+import { CREATE_REVIEW, FETCH_DATABASE_RESTAURANT, SAVE_RESTAURANT } from "../actions/types";
 
 export default function (state = {}, action) {
 	if (action.error) {
 		return (action.error);
 	}
 	switch (action.type) {
-		case FETCH_RESTAURANT:
+		case FETCH_DATABASE_RESTAURANT:
 			return action.payload;
 		case CREATE_REVIEW:
 			return action.payload;

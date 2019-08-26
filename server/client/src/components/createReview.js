@@ -8,7 +8,7 @@ import AccessibilityNewIcon from '@material-ui/icons/AccessibilityNew';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { bindActionCreators } from 'redux';
-import { fetchRestaurant, createReview, fetchCurrentRestaurant, saveReview } from '../actions'
+import { fetchDatabaseRestaurant, createReview, fetchCurrentApiRestaurant, saveReview } from '../actions'
 import { connect } from "react-redux";
 
 
@@ -41,8 +41,8 @@ class CreateReview extends Component {
 	}
 
 	componentDidMount() {
-		this.props.fetchRestaurant(this.props.match.params.id)
-		this.props.fetchCurrentRestaurant(this.props.match.params.id)
+		this.props.fetchDatabaseRestaurant(this.props.match.params.id)
+		this.props.fetchCurrentApiRestaurant(this.props.match.params.id)
 	}
 
 	onSubmit() {
@@ -77,7 +77,7 @@ class CreateReview extends Component {
 						autoComplete="none"
 						value={this.state.reviewerName}
 						onChange={this.handleNameChange}
-						onFocus={this.props.match.params.id && this.props.fetchRestaurant(this.props.match.params.id)}
+						onFocus={this.props.match.params.id && this.props.fetchDatabaseRestaurant(this.props.match.params.id)}
 						name="Name"
 						variant="outlined"
 						required
@@ -147,7 +147,7 @@ class CreateReview extends Component {
 function mapStateToProps(state) {
 	return {
 		restaurants: state.restaurants,
-		currentDatabaseRestaurant: state.current_restaurant
+		currentDatabaseRestaurant: state.current_database_restaurant
 	}
 }
 

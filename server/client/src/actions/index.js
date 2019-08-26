@@ -1,5 +1,5 @@
 import axios from "axios";
-import { SAVE_REVIEW, FETCH_DATABASE_RESTAURANTS, FETCH_RESTAURANTS, FETCH_RESTAURANT, CREATE_REVIEW, FETCH_CURRENT_RESTAURANT } from "./types";
+import { SAVE_REVIEW, FETCH_DATABASE_RESTAURANTS, FETCH_RESTAURANTS, FETCH_DATABASE_RESTAURANT, CREATE_REVIEW, FETCH_CURRENT_API_RESTAURANT } from "./types";
 
 const ROOT_URL = 'http://localhost:8000';
 
@@ -13,10 +13,10 @@ export const fetchRestaurants = (location) => dispatch => {
 		})
 }
 
-export const fetchRestaurant = (id) => dispatch => {
+export const fetchDatabaseRestaurant = (id) => dispatch => {
 	axios.get(`/restaurants/database/${id}`)
 		.then(response => {
-			dispatch({ type: FETCH_RESTAURANT, payload: response.data});
+			dispatch({ type: FETCH_DATABASE_RESTAURANT, payload: response.data});
 		})
 		.catch(error => {
 			console.log(error);
@@ -31,10 +31,10 @@ export const fetchDatabaseRestaurants = () => dispatch => {
 			console.log(error);
 		})
 }
-export const fetchCurrentRestaurant = (id) => dispatch => {
+export const fetchCurrentApiRestaurant = (id) => dispatch => {
 	axios.get(`/restaurants/api/${id}`)
 	.then(response => {
-		dispatch({ type: FETCH_CURRENT_RESTAURANT, payload: response.data});
+		dispatch({ type: FETCH_CURRENT_API_RESTAURANT, payload: response.data});
 	})
 	.catch(error => {
 		console.log(error);

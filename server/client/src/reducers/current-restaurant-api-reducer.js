@@ -1,4 +1,4 @@
-import { FETCH_CURRENT_RESTAURANT } from "../actions/types";
+import { FETCH_CURRENT_API_RESTAURANT } from "../actions/types";
 
 
 export default function (state = {}, action) {
@@ -6,7 +6,7 @@ export default function (state = {}, action) {
 		return (action.error);
 	}
 	switch (action.type) {
-		case FETCH_CURRENT_RESTAURANT:
+		case FETCH_CURRENT_API_RESTAURANT:
 			return action.payload;
 		default:
 			return state;

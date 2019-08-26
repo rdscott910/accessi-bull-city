@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import AccessibilityNewIcon from '@material-ui/icons/AccessibilityNew';
 import {AppBar, CssBaseline, Toolbar, Typography, Button, Grid, Container, Card, CardContent} from '@material-ui/core'
 import { bindActionCreators } from 'redux';
-import { fetchRestaurant, saveRestaurant, fetchCurrentRestaurant } from '../actions'
+import { fetchDatabaseRestaurant, saveRestaurant, fetchCurrentApiRestaurant } from '../actions'
 
 class RestaurantDetailView extends Component {
 
@@ -18,7 +18,7 @@ class RestaurantDetailView extends Component {
 	}
 
 	componentDidMount() {
-		this.props.fetchCurrentRestaurant(this.props.match.params.id)
+		this.props.fetchCurrentApiRestaurant(this.props.match.params.id)
 	}
 
 	handleClick() {
@@ -36,7 +36,7 @@ class RestaurantDetailView extends Component {
 	}
 
 	render() {
-		this.props.match.params.id && this.props.fetchRestaurant(this.props.match.params.id);
+		this.props.match.params.id && this.props.fetchDatabaseRestaurant(this.props.match.params.id);
 		
 		return (
 			<React.Fragment>
@@ -112,14 +112,14 @@ class RestaurantDetailView extends Component {
 
 function mapStateToProps(state) {
 	return {
-		restaurant: state.current_restaurant,
+		restaurant: state.current_database_restaurant,
 		ApiRestaurant: state.current_api_restaurant
 	};
 }
 
 function mapDispatchToProps(dispatch) {
 	return bindActionCreators(
-		{fetchRestaurant, saveRestaurant, fetchCurrentRestaurant}, dispatch
+		{fetchDatabaseRestaurant, saveRestaurant, fetchCurrentApiRestaurant}, dispatch
 	);
 }
 

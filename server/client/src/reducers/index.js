@@ -5,7 +5,7 @@ import CurrentApiRestaurantReducer from "./current-restaurant-api-reducer";
 
 const rootReducer = combineReducers({
 	restaurants: RestaurantsReducer,
-	current_restaurant: CurrentRestaurantReducer,
+	current_database_restaurant: CurrentRestaurantReducer,
 	current_api_restaurant: CurrentApiRestaurantReducer
 });
 
