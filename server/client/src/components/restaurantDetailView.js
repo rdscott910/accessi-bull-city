@@ -56,20 +56,22 @@ class RestaurantDetailView extends Component {
 					</Toolbar>
 				</AppBar>
 				<main>
-					<Container maxWidth="sm">
-							<div style={{padding: '1.5em 0 1.5em 0'}}>
-								<Grid container spacing={2}>
-									<Grid item>
-										<Link to="/" style={{textDecoration: 'none'}}>
-											<Button variant="contained" style={{background: '#3C5165', color: '#E4F2FC'}}>
-											Back To Restaurants
-											</Button>
-										</Link>
+					<div>
+						<Container maxWidth="sm">
+								<div style={{padding: '1.5em 0 1.5em 0'}}>
+									<Grid container spacing={2}>
+										<Grid item>
+											<Link to="/" style={{textDecoration: 'none'}}>
+												<Button variant="contained" style={{background: '#3C5165', color: '#E4F2FC'}}>
+												Back To Restaurants
+												</Button>
+											</Link>
+										</Grid>
 									</Grid>
-								</Grid>
-							</div>
-					</Container>
-					<Container style={{overflow: 'auto'}}>
+								</div>
+						</Container>
+					</div>
+					<Container style={{overflow: 'auto'}} onTouchMove="true">
 						<Typography variant="h2" component="h1">
 						{this.props.ApiRestaurant.name}<br />
 						</Typography>
