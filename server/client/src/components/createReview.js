@@ -41,7 +41,7 @@ class CreateReview extends Component {
 	}
 
 	componentDidMount() {
-		this.props.fetchDatabaseRestaurant(this.props.match.params.id)
+		setTimeout(() => this.props.fetchDatabaseRestaurant(this.props.match.params.id), 500)
 		this.props.fetchCurrentApiRestaurant(this.props.match.params.id)
 	}
 
