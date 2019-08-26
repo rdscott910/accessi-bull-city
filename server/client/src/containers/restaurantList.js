@@ -113,7 +113,7 @@ class RestaurantList extends Component {
 			</React.Fragment>
 		);
 	}
-  }
+}
 
   function mapStateToProps(state) {
 	  return {

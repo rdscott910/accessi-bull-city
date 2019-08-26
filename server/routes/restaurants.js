@@ -42,15 +42,16 @@ router.post('/restaurant/update/:objectId', (req, res, next) => {
 		});
 });
 
+// GET route for single restaurant by ID
 router.get('/database/:id', (req, res, next) => {
 	let {id} = req.params;
 	Restaurant.findOne({id: id}).exec((err, response) => {
 		if (err) throw err;
 		res.send(response)
 	})
-	// req.restaurant ? res.status(200).send(req.restaurant) : res.status(404).send('Restaurant not found.');
-})
+});
 
+// GET route for single restaurant from yelp fusion 
 router.get('/api/:id', (req, res, next) => {
 	let { id } = req.params;
 	client.business(`${id}`).then(response => {
@@ -82,6 +83,7 @@ router.get('/save/:id', (req, res, next) => {
 	  });
 });
 
+// POST route for updating database restaurants with new reviews
 router.post('/restaurant/reviews/:id', (req,res,next) => {
 	let {id} = request.params;
 	Restaurant.find({id: id},
@@ -91,7 +93,7 @@ router.post('/restaurant/reviews/:id', (req,res,next) => {
 			if (err) return next(err);
 			res.send(result);
 		});
-})
+});
 
 // Make request to yelp fusion and store business name and id in database
 router.get('/location/:location', (req, res, next) => {
@@ -103,6 +105,6 @@ router.get('/location/:location', (req, res, next) => {
 	  }).catch(e => {
 		console.log(e);
 	  });
-})
+});
 
 module.exports = router;

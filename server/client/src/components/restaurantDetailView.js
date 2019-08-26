@@ -69,7 +69,7 @@ class RestaurantDetailView extends Component {
 								</Grid>
 							</div>
 					</Container>
-					<Container>
+					<Container style={{overflow: 'auto'}}>
 						<Typography variant="h2" component="h1">
 						{this.props.ApiRestaurant.name}<br />
 						</Typography>
