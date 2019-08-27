@@ -8,7 +8,7 @@ import AccessibilityNewIcon from '@material-ui/icons/AccessibilityNew';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { bindActionCreators } from 'redux';
-import { fetchDatabaseRestaurant, createReview, fetchCurrentApiRestaurant, saveReview } from '../actions'
+import { fetchDatabaseRestaurant, createReview, fetchCurrentApiRestaurant} from '../actions'
 import { connect } from "react-redux";
 
 
@@ -54,7 +54,7 @@ class CreateReview extends Component {
 	}
 	handleBackButtonClick(rest, review) {
 		this.props.createReview(rest._id, { reviews: review });
-		this.props.saveReview(rest.id, { review: review })
+		// this.props.saveReview(rest.id, { review: review })
 		this.props.history.push(`/restaurants/${this.props.match.params.id}`);
 	}
 
