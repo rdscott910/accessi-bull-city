@@ -151,7 +151,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-	return bindActionCreators({ createReview, fetchDatabaseRestaurant, fetchCurrentApiRestaurant, saveReview }, dispatch);
+	return bindActionCreators({ createReview, fetchDatabaseRestaurant, fetchCurrentApiRestaurant}, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateReview);
