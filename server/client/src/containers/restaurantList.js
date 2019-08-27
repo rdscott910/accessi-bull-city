@@ -100,8 +100,8 @@ class RestaurantList extends Component {
 											</Typography>
 										</CardContent>
 										<CardActions>
-											<Link to={`/restaurants/${restaurant.id}`} style={{textDecoration: 'none'}}>
-												<Button size="large" color="primary" style={{background: '#3C5165', color: '#E4F2FC'}}>
+											<Link to={`/restaurants/${restaurant.id}`} style={{textDecoration: 'none'}} >
+												<Button aria-label={restaurant.name + ' view details'} size="large" color="primary" style={{background: '#3C5165', color: '#E4F2FC'}}>
 													<strong>View Details</strong>
 												</Button>
 											</Link>
